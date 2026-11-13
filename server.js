@@ -7,7 +7,7 @@ console.log('Project ID from .env:', process.env.FIREBASE_PROJECT_ID);
 console.log('------------------------------------');
 // --- END DEBUGGING ---
 
-const { initializeApp, applicationDefault } = require('firebase-admin/app');
+const { initializeApp, cert } = require('firebase-admin/app');
 const { getFirestore, FieldValue } = require('firebase-admin/firestore');
 const express = require('express');
 const http = require('http');
