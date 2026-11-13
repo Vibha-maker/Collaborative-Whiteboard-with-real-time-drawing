@@ -20,16 +20,23 @@ const wss = new WebSocket.Server({ server });
 
 // --- Firebase Initialization ---
 let db;
+
 try {
-  initializeApp({
-    credential: applicationDefault(),
-    projectId: process.env.FIREBASE_PROJECT_ID,
-  });
-  db = getFirestore();
-  console.log('Firebase connected successfully.');
+    const serviceAccount = JSON.parse(
+        process.env.FIREBASE_SERVICE_ACCOUNT
+    );
+
+    initializeApp({
+        credential: cert(serviceAccount),
+        projectId: process.env.FIREBASE_PROJECT_ID
+    });
+
+    db = getFirestore();
+    console.log('Firebase connected successfully.');
+
 } catch (error) {
-  console.error('Firebase initialization error:', error);
-  process.exit(1);
+    console.error('Firebase initialization error:', error);
+    process.exit(1);
 }
 
 // In-memory map to track WebSocket connections for each room
